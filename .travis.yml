@@ -1,4 +1,7 @@
 language: cpp
+compiler:
+  - clang
+  - gcc
 before_script:
   - gpg --keyserver pgpkeys.mit.edu --recv-key  A3FAA648D9223EDA
   - gpg -a --export A3FAA648D9223EDA | sudo apt-key add -

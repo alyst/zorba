@@ -6,7 +6,7 @@ set -x
 #cmake -Doutdir=../zorba_modules -Dallmodules=1 -P modules/DownloadModules.cmake
 
 echo ====== Build Zorba ======
-mkdir -p build && cd build && cmake -DZORBA_XQUERYX:BOOL=1 -DZORBA_TEST_XQUERYX:BOOL=1 -DZORBA_WITH_BIG_INTEGER=1 -DCMAKE_BUILD_TYPE=Release -DZORBA_TEST_PLAN_SERIALIZATION:BOOL=1 -DZORBATEST_USE_MT_XQTS:BOOL=1 .. && make -j8
+mkdir -p build && cd build && cmake -DZORBA_XQUERYX:BOOL=1 -DZORBA_TEST_XQUERYX:BOOL=1 -DZORBA_WITH_BIG_INTEGER=1 -DCMAKE_BUILD_TYPE=Release -DZORBA_TEST_PLAN_SERIALIZATION:BOOL=1 -DZORBATEST_USE_MT_XQTS:BOOL=1 .. && make -j2
 
 echo ====== Import Tests ======
 ../test/rbkt/Scripts/w3c/import_w3c_testsuite.sh .. &
@@ -28,7 +28,7 @@ cmake -D ZORBA=./bin/zorba -D BUILDDIR=/home/travis/build/28msec/zorba/build -P 
 make fots-activate-sets
 
 echo ====== Run Tests ======
-env QTTEST=42 QTTEST2=other QTTESTEMPTY='' CLOUDANT_CREDENTIALS=/home/jenkins/rq/dbs/cloudant/credentials.json ctest -j8 -T Test -E '^zorba_info-extraction_module|conversion/currency-convert' --output-on-failure --no-compress-output &
+env QTTEST=42 QTTEST2=other QTTESTEMPTY='' CLOUDANT_CREDENTIALS=/home/jenkins/rq/dbs/cloudant/credentials.json ctest -j2 -T Test -E '^zorba_info-extraction_module|conversion/currency-convert' --output-on-failure --no-compress-output &
 wait $! || FAIL=1
 cmake -D zorba=./bin/zorba -P ../ctest2junit.cmake
 exit ${FAIL}
